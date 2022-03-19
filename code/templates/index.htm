@@ -1,0 +1,29 @@
+{% extends "layout.htm" %}
+
+{% block body %}
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% if filename %}
+            <img src="{{ url_for('display_image', filename=filename) }}">
+    {% endif %}
+    {% if disease %}
+            <p>{{ disease }}</p>
+        <form action="/" method="GET">
+            <input type="submit" value="Go back">
+        </form>
+    {% else %}
+        <form action="/" enctype="multipart/form-data" method="POST">
+            <input accept="image/*" autofocus name="file"  placehoder="file" type="file" >
+            <input type="submit" value="Upload">
+        </form>
+    {% endif %}
+{% endblock %}
