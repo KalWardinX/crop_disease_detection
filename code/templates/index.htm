@@ -1,29 +1,64 @@
-{% extends "layout.htm" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../static/css/style.css" >
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+</head>
+<body>
+    <div class="header">
+        <p class="text">Rice Leaf Disease Detection</p>
+    </div>
+    <div class="content">
+        
 
-{% block body %}
-
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
+        {% if filename %}
+        <div class="c1">
             <ul>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
+                <li>
+                    <img id="img"src="{{ url_for('display_image', filename=filename) }}">
+                </li>
+            
         {% endif %}
-    {% endwith %}
-
-    {% if filename %}
-            <img src="{{ url_for('display_image', filename=filename) }}">
-    {% endif %}
-    {% if disease %}
-            <p>{{ disease }}</p>
-        <form action="/" method="GET">
-            <input type="submit" value="Go back">
-        </form>
-    {% else %}
+        {% if disease %}
+                <li>
+                    <p>{{ disease }}</p>
+                </li>
+                
+            </ul>
+            </ul>
+        </div>
+        <div class="c2">
+            <form action="/" method="GET">
+                <ul>
+                    <input type="submit" value="Go back"> 
+                </ul>
+                
+            </form>
+        {% else %}
         <form action="/" enctype="multipart/form-data" method="POST">
-            <input accept="image/*" autofocus name="file"  placehoder="file" type="file" >
-            <input type="submit" value="Upload">
+            <ul>
+                <li><input accept="image/*" name="file"  placehoder="file" type="file" ></li>
+                <li><input type="submit" value="Upload"></li>
+            </ul>
+            
         </form>
-    {% endif %}
-{% endblock %}
+    {% endif %}          
+        </div>
+
+    </div>
+    <div class="footer">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <span><li>{{ message }}</li></span>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+    
+</body>
+</html>
